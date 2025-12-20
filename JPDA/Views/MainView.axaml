@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:JPDA.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="700"
+             x:Class="JPDA.Views.MainView"
+             x:DataType="vm:MainViewModel"
+             x:CompileBindings="False">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE, 
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+    
+    <SplitView IsPaneOpen="{Binding IsMenuPaneOpen}" CompactPaneLength="60" OpenPaneLength="200">
+        <SplitView.Pane>
+            <StackPanel Margin="0,0,0,0" Spacing="5" VerticalAlignment="{Binding MenuButtonAlignment}">
+                
+                <ListBox x:Name="MainListBox" SelectedIndex="0" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedListItem}" VerticalAlignment="Stretch" FontSize="18" FontFamily="{StaticResource NotoSans}" Margin="0,20,0,20" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type vm:ListItemTemplate}">
+                            <StackPanel Orientation="Horizontal">
+                                <!-- Desktop: Icon H=19 FonSize = 18 Margin = top 0-->
+                                <PathIcon x:Name="MenuPaneIcon" Height="21" Margin="8,2,0,0" Data="{Binding ListItemIcon}"></PathIcon>
+                                <TextBlock x:Name="MenuPaneText" FontSize="20"  Margin="10,0,0,0" Text="{Binding Label}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                
+            </StackPanel>
+        </SplitView.Pane>
+        
+        <SplitView.Content>
+            <Grid RowDefinitions="*">
+                <TransitioningContentControl Grid.Row="0" Content="{Binding CurrentPage}" />
+                
+                <Button CornerRadius="8" Command="{Binding TriggerPaneCommand}" Margin="20,20,0,20" VerticalAlignment="{Binding MenuButtonAlignment}" Width="{Binding MenuButtonWidth}" >
+                    <PathIcon Data="{StaticResource LineHorizontal3Regular} " Height="{Binding MenuIconHeight}" Width="{Binding MenuIconWidth}"></PathIcon>
+                </Button>
+                
+            </Grid>
+        </SplitView.Content>
+    </SplitView>
+  
+</UserControl>

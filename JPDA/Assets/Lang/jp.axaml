@@ -1,0 +1,23 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+	<x:String x:Key="ui_menu_kanji_input">漢字入力</x:String> 
+	<x:String x:Key="ui_menu_settings">設定</x:String> 
+	<x:String x:Key="ui_menu_dictionary">辞書</x:String>
+
+    <x:String x:Key="ui_input">入力</x:String>
+    <x:String x:Key="ui_find_jmdict">JMDICTで検索</x:String>
+    <x:String x:Key="ui_find_jardic">Jardicで検索</x:String>  
+	<x:String x:Key="ui_word_list">ここに単語のリストを想像してみて</x:String> 
+	
+	<x:String x:Key="ui_settings">設定</x:String> 
+	<x:String x:Key="ui_app_language">アプリの言語</x:String> 
+	<x:String x:Key="ui_languages_selector">翻訳先の言語</x:String> 
+
+	<x:String x:Key="ui_button_placement">メニューボタンの配置</x:String>
+	<x:String x:Key="ui_top">上</x:String>
+	<x:String x:Key="ui_bottom">下</x:String>
+	
+	<x:String x:Key="ui_word"> 言葉</x:String>
+</ResourceDictionary>

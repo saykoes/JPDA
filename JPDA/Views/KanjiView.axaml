@@ -1,0 +1,32 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:JPDA.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="700"
+             x:Class="JPDA.Views.KanjiView"
+             x:DataType="vm:KanjiViewModel">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE, 
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:KanjiViewModel />
+    </Design.DataContext>
+    <Grid RowDefinitions="*,200,80,2*">
+        
+        <StackPanel Grid.Row="1" VerticalAlignment="Top" Margin="0,0,0,0">
+                    
+            <TextBlock Text="{DynamicResource ui_input}" Margin="0,0,0,10" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="28" FontFamily="{StaticResource NotoSans}"/>
+            <TextBox x:Name="KanjiInput" Watermark="漢字" TextWrapping="NoWrap" MinHeight="70" CornerRadius="10" MinWidth="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100" FontFamily="{StaticResource KanjiStroke}" Text="{Binding InputText, Mode=TwoWay}"/>
+        </StackPanel>
+      
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center">
+            <Button IsDefault="True" Command="{Binding RedirectToDictionary}" CornerRadius="8" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Background="{DynamicResource SystemAccentColorDark1}" Foreground="{DynamicResource SystemAccentColorLight3}" >
+                <TextBlock Margin="5,0,5,0" FontFamily="{StaticResource NotoSans}" Text="{DynamicResource ui_find_jmdict}"></TextBlock>
+            </Button>
+            <Button Click="JardicButton_OnClick" CornerRadius="8" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Background="{DynamicResource SystemAccentColorLight3}" Foreground="{DynamicResource SystemAccentColorDark2}" >
+                <TextBlock Margin="5,0,5,0" FontFamily="{StaticResource NotoSans}" Text="{DynamicResource ui_find_jardic}"></TextBlock>
+            </Button>
+        </StackPanel>
+        <TextBlock Grid.Row="3" HorizontalAlignment="Center" Margin="0,0,0,50" Text="Saikou Egor 2307b"></TextBlock>
+    </Grid>
+</UserControl>

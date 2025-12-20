@@ -1,0 +1,50 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:JPDA.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="700"
+             x:Class="JPDA.Views.SettingsView"
+            x:DataType="vm:SettingsViewModel">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE, 
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+    <Grid RowDefinitions="*,*">
+        <TextBlock Text="{DynamicResource ui_settings}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36" FontFamily="{StaticResource NotoSans}"></TextBlock>
+        <StackPanel Grid.Row="1" Spacing="30" HorizontalAlignment="Center" >
+            <Grid ColumnDefinitions="2*,*">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{DynamicResource ui_app_language}"></TextBlock>
+                
+                <ComboBox CornerRadius="8" SelectionChanged="SelectingItemsControl_OnSelectionChanged_Langs" Grid.Column="1" SelectedIndex="{Binding SelectedLangId, Mode=TwoWay}" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center">
+                    <ComboBoxItem> English </ComboBoxItem>
+                    <ComboBoxItem> Русский </ComboBoxItem>
+                    <ComboBoxItem> 日本語 </ComboBoxItem>
+                </ComboBox>
+
+            </Grid>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{DynamicResource ui_languages_selector}" Margin="0,20,0,-20"></TextBlock>
+            <Grid RowDefinitions="*" ColumnDefinitions="*,*" RowSpacing="0" ColumnSpacing="40" HorizontalAlignment="Center"> 
+               
+                <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding IsTargetLangEng}" Click="CheckBox_OnClick"> English </CheckBox>
+                <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding IsTargetLangRus}" Click="CheckBox_OnClick"> Русский </CheckBox>
+            </Grid>
+            <Grid ColumnDefinitions="2*,*">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{DynamicResource ui_button_placement}"></TextBlock>
+                
+                <ComboBox CornerRadius="8" Margin="20,0,0,0" SelectionChanged="SelectingItemsControl_OnSelectionChanged_Button_Alignment" Grid.Column="1" SelectedIndex="{Binding MenuButtonAlignId, Mode=TwoWay}" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center">
+                    <ComboBoxItem> <TextBlock Text="{DynamicResource ui_top}"></TextBlock> </ComboBoxItem>
+                    <ComboBoxItem> <TextBlock Text="{DynamicResource ui_bottom}"></TextBlock> </ComboBoxItem>
+                </ComboBox>
+
+            </Grid>
+        </StackPanel>
+    </Grid>
+    
+    <UserControl.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource NotoSans}"/>
+        </Style>
+    </UserControl.Styles>
+</UserControl>

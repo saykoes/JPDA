@@ -1,0 +1,34 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:JPDA"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             x:Class="JPDA.App"
+             xmlns:vm="clr-namespace:JPDA.ViewModels"
+             x:DataType="vm:MainViewModel"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+             <Design.DataContext>
+                 <!-- This only sets the DataContext for the previewer in an IDE, 
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+                 <vm:MainViewModel />
+             </Design.DataContext>
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+    
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://JPDA/Assets/Icons.axaml"></StyleInclude>
+    </Application.Styles>
+    <Application.Resources>
+        <ResourceDictionary>
+            <FontFamily x:Key="KanjiStroke">avares://JPDA/Assets/Fonts/KanjiStrokeOrders_v4.005.ttf#KanjiStroke</FontFamily>
+            <FontFamily x:Key="NotoSans">avares://JPDA/Assets/Fonts/NotoSansJP-SemiBold.ttf#Noto Sans JP SemiBold</FontFamily>
+            <FontFamily x:Key="NotoSansR">avares://JPDA/Assets/Fonts/NotoSansJP-SemiBold.ttf#Noto Sans JP Regular</FontFamily>
+            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://JPDA/Assets/Lang/en.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,61 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:JPDA.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="700"
+             xmlns:local="clr-namespace:JPDA"
+             xmlns:views="clr-namespace:JPDA.Views"
+             x:Class="JPDA.Views.DictionaryView"
+             x:DataType="vm:DictionaryViewModel">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" >
+            <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsLoading}" VerticalAlignment="Top"/>
+            <StackPanel Margin="0,0,0,20">
+                <TextBlock Margin="0,20,0,25" Text="{DynamicResource ui_menu_dictionary}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" FontFamily="{StaticResource NotoSans}"></TextBlock>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Top">
+                    <TextBox Text="{Binding WrittenWord, Mode=TwoWay}" CornerRadius="8" Margin="20,0,20,0" Watermark="{DynamicResource ui_word}" TextWrapping="NoWrap" Height="44" FontSize="20" Width="250" FontFamily="{StaticResource NotoSans}"></TextBox>
+                    <Button IsDefault="True" Command="{Binding SearchButtonCommand}" CornerRadius="8" VerticalAlignment="Center" FontSize="24" Background="{DynamicResource AccentButtonBackground}" Foreground="White" Height="44" Width="44">
+                        <PathIcon Data="{StaticResource SearchRegular} " Height="20" Width="28" Foreground="White"></PathIcon>
+                    </Button>
+                </StackPanel>
+            
+            </StackPanel>
+        </Grid>
+    
+        <ScrollViewer Grid.Row="1" Offset="{Binding ScrollOffset, Mode=TwoWay}">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5" IsVisible="{Binding PageControlVisible}">
+                    <Button Command="{Binding PrevButtonCommand}" Margin="0,0,20,0" Height="40" Width="40" IsVisible="{Binding PageControlBackVisible}">
+                        <PathIcon Data="{StaticResource ArrowLeftRegular} " Height="18" Width="28"></PathIcon>
+                    </Button> 
+                    <TextBlock Text="{Binding CurrentPageOffset}" FontFamily="{StaticResource NotoSans}" FontSize="18" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text="/" FontFamily="{StaticResource NotoSans}" FontSize="18" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text="{Binding AllPageOffset}" FontFamily="{StaticResource NotoSans}" FontSize="18" VerticalAlignment="Center"></TextBlock>
+                    <Button Command="{Binding NextButtonCommand}" Margin="20,0,0,0" Height="40" Width="40" IsVisible="{Binding PageControlForwardVisible}">
+                        <PathIcon Data="{StaticResource ArrowRightRegular} " Height="18" Width="28"></PathIcon>
+                    </Button> 
+                </StackPanel>
+                
+                <ItemsControl x:Name="ItemsControlU" ItemsSource="{Binding DictCollection, Mode=OneWay}"> 
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type views:WordView}" />
+                        </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,20" IsVisible="{Binding PageControlVisible}">
+                    <Button Command="{Binding PrevButtonCommand}" Margin="0,0,20,0" Height="40" Width="40" IsVisible="{Binding PageControlBackVisible}">
+                        <PathIcon Data="{StaticResource ArrowLeftRegular} " Height="18" Width="28"></PathIcon>
+                    </Button> 
+                    <TextBlock Text="{Binding CurrentPageOffset}" FontFamily="{StaticResource NotoSans}" FontSize="18" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text="/" FontFamily="{StaticResource NotoSans}" FontSize="18" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text="{Binding AllPageOffset}" FontFamily="{StaticResource NotoSans}" FontSize="18" VerticalAlignment="Center"></TextBlock>
+                    <Button Command="{Binding NextButtonCommand}" Margin="20,0,0,0" Height="40" Width="40" IsVisible="{Binding PageControlForwardVisible}">
+                        <PathIcon Data="{StaticResource ArrowRightRegular} " Height="18" Width="28"></PathIcon>
+                    </Button> 
+                </StackPanel>
+                
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

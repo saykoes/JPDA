@@ -1,0 +1,38 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:JPDA.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="400"
+             x:Class="JPDA.Views.WordView"
+             x:DataType="vm:WordViewModel">
+    <Border Background="{DynamicResource SystemControlPageBackgroundChromeLowBrush}" BorderThickness="20" CornerRadius="30" >
+        <StackPanel  VerticalAlignment="Top">
+            <Border Background="{DynamicResource SystemControlPageBackgroundAltMediumBrush}" Margin="0,0,0,7" CornerRadius="30">
+                <StackPanel>
+                    <TextBlock Margin="0,5,0,0" Text="{Binding JpKana}" FontSize="20" TextWrapping="Wrap" Foreground="{DynamicResource SystemAccentColorDark1}"  HorizontalAlignment="Center" FontFamily="{StaticResource NotoSansR}" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Margin="0,-5,0,0" Text="{Binding JpKanji}" FontSize="70" Foreground="{DynamicResource SystemAccentColorLight2}" TextWrapping="Wrap" TextAlignment="Center" FontFamily="{StaticResource KanjiStroke}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                </StackPanel>
+            </Border>
+
+           
+        
+                <ItemsControl ItemsSource="{Binding WordDefs}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" ItemsAlignment="Center" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                                <Border Background="{DynamicResource SystemControlPageBackgroundAltMediumBrush}" CornerRadius="5" Margin="0,0,8,5">
+                                    <TextBlock Text="{Binding}" TextWrapping="Wrap" FontSize="20" Margin="5,0,5,2" HorizontalAlignment="Center" FontFamily="{StaticResource NotoSansR}" VerticalAlignment="Center"></TextBlock>
+                                </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                
+           
+        </StackPanel>
+    </Border>
+</UserControl>
