@@ -17,7 +17,7 @@
         <SplitView.Pane>
             <StackPanel Margin="0,0,0,0" Spacing="5" VerticalAlignment="{Binding MenuButtonAlignment}">
                 
-                <ListBox x:Name="MainListBox" SelectedIndex="0" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedListItem}" VerticalAlignment="Stretch" FontSize="18" FontFamily="{StaticResource NotoSans}" Margin="0,20,0,20" >
+                <ListBox x:Name="MainListBox" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedListItem, Mode=TwoWay}" VerticalAlignment="Stretch" FontSize="18" FontFamily="{StaticResource NotoSans}" Margin="0,20,0,20" >
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type vm:ListItemTemplate}">
                             <StackPanel Orientation="Horizontal">
@@ -33,10 +33,10 @@
         </SplitView.Pane>
         
         <SplitView.Content>
-            <Grid RowDefinitions="*">
-                <TransitioningContentControl Grid.Row="0" Content="{Binding CurrentPage}" />
+            <Grid RowDefinitions="*" IsFocused="{Binding IsContentPaneFocused}">
+                <TransitioningContentControl  Grid.Row="0" Content="{Binding CurrentPage}" />
                 
-                <Button CornerRadius="8" Command="{Binding TriggerPaneCommand}" Margin="20,20,0,20" VerticalAlignment="{Binding MenuButtonAlignment}" Width="{Binding MenuButtonWidth}" >
+                <Button Classes.triggered="{Binding IsButtonAnimated}" CornerRadius="8" Command="{Binding TriggerPaneCommand}" Margin="20,20,0,20" VerticalAlignment="{Binding MenuButtonAlignment}" Width="{Binding MenuButtonWidth}" >
                     <PathIcon Data="{StaticResource LineHorizontal3Regular} " Height="{Binding MenuIconHeight}" Width="{Binding MenuIconWidth}"></PathIcon>
                 </Button>
                 
@@ -44,4 +44,5 @@
         </SplitView.Content>
     </SplitView>
   
+    
 </UserControl>

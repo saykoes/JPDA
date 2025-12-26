@@ -18,10 +18,9 @@ public partial class DictionaryView : UserControl
             {
                 if (App.IsRedirect)
                 {
-                    Dispatcher.UIThread.InvokeAsync(async () => { await vm.SearchButtonCommand(); App.IsRedirect = false;},
-                        DispatcherPriority.Background);
+                    Dispatcher.UIThread.InvokeAsync(async () => { await vm.SearchButtonCommand();});
                     
-                    
+                    App.IsRedirect = false;
                 }
             }
         

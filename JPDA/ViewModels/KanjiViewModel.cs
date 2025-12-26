@@ -16,9 +16,7 @@ public partial class KanjiViewModel : ViewModelBase
     [RelayCommand]
     public void RedirectToDictionary()
     {
-        Console.WriteLine("Hello");
         if (String.IsNullOrEmpty(InputText)) return;
-        Console.WriteLine("Not null!");
         App.IsRedirect = true;
         App.KanjiInputText = InputText;
         App.ResetViews(1);

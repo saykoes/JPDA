@@ -13,6 +13,5 @@ public partial class WordView : UserControl
     {
         InitializeComponent();
         this.DataContext = new WordViewModel(uJpKanji, uJpKana, uWordDefs);
-        Console.WriteLine("Created!");
     }
 }

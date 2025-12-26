@@ -2,10 +2,12 @@
 
 This app shows you handwritten kanji from text input
 
-# !!Generate db before compiling!! (/Assets/expression_rus_eng.db)
+# !!Place db in `/Assets/expression_rus_eng.db` before compiling!! 
 
-Please generate JMDICT SQLite db file from [here](https://github.com/odrevet/edict_database) using the next configuration
-
+You can generate JMDICT SQLite db file in two ways:
+- From [here](https://github.com/odrevet/edict_database) using the this configuration:
 ```bash
 dart src/to_sql_expression.dart --langs "eng,rus"
 ```
+
+- Or by launching Windows executable as it copies db file to the same folder

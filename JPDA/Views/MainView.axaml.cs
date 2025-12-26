@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Platform;
+using Avalonia.Threading;
 
 namespace JPDA.Views;
 using JPDA.ViewModels;
@@ -34,8 +36,10 @@ public partial class MainView : UserControl
     public MainView()
     {
         InitializeComponent();
-        MainListBox.SelectedIndex = App.CurrentScreenId; // Used in resetting views
+        StaticMainVm.ChangePage();
+        MainListBox.SelectedItem = StaticMainVm.SelectedListItem; // Used in resetting views
         this.DataContext = StaticMainVm;
+        
         
         // Applying saved settings from xml to the app
         // App language
@@ -56,7 +60,7 @@ public partial class MainView : UserControl
         bool.TryParse(GetSetting("IsTargetLangEng"), out App.TargetEng);
         bool.TryParse(GetSetting("IsTargetLangRus"), out App.TargetRus);
         
-        // Menu Alignment and applyin in ViewModel
+        // Menu Alignment and applying in ViewModel
         if (int.TryParse(GetSetting("MenuButtonAlign"), out int align)) {
             string buttonAlign = align switch
             {
@@ -67,7 +71,17 @@ public partial class MainView : UserControl
             App.MenuButtonAlign = align;
             if (this.DataContext is MainViewModel mvm)
             {
-                mvm.MenuButtonAlignment = MainView.MenuButtonAlignStr = buttonAlign;
+                if (App.CurrentScreenId == 2)
+                {
+                    var temp = buttonAlign; // For some reason buttonAlign fails after Task.Delay(50) so we have to save it
+                    Dispatcher.UIThread.Post(async void () =>
+                    {
+                        await Task.Delay(50); 
+                        mvm.MenuButtonAlignment = MainView.MenuButtonAlignStr = temp;
+                    });
+                    mvm.MenuButtonAlignment = MainView.MenuButtonAlignStr = buttonAlign;
+                    mvm.LangMenuReset(); // Change text in menu
+                }
                 
                 // Set smaller menu button size for Desktop
                 // (doing it here to use ViewModel in one place)
@@ -77,8 +91,6 @@ public partial class MainView : UserControl
                     mvm.MenuIconWidth = 25;
                     mvm.MenuIconHeight = 35;
                 }
-
-                mvm.LangMenuReset(); // Change text in menu
             }
         }
     }

@@ -26,6 +26,8 @@ public partial class App : Application
 
     public static IApplicationLifetime? CurrentApplicationLifetime;
     
+    //public static MainWindow? MainWindowStatic;
+    
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -39,10 +41,7 @@ public partial class App : Application
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainViewModel()
-            };
+            desktop.MainWindow = new MainWindow();
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
@@ -75,10 +74,10 @@ public partial class App : Application
         
         if (CurrentApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
+            if (desktop.MainWindow is MainWindow mainWindow)
             {
-                DataContext = new MainViewModel()
-            };
+                mainWindow.ResetMainView();
+            }
         }
         else if (CurrentApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {

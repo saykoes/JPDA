@@ -11,7 +11,11 @@
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:KanjiViewModel />
     </Design.DataContext>
-    <Grid RowDefinitions="*,200,80,2*">
+    
+    <Grid RowDefinitions="*,200,80,2*" Classes="FlyoutAnimation">
+        <Grid.RenderTransform>
+            <TranslateTransform />
+        </Grid.RenderTransform>
         
         <StackPanel Grid.Row="1" VerticalAlignment="Top" Margin="0,0,0,0">
                     
@@ -20,7 +24,7 @@
         </StackPanel>
       
         <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center">
-            <Button IsDefault="True" Command="{Binding RedirectToDictionary}" CornerRadius="8" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Background="{DynamicResource SystemAccentColorDark1}" Foreground="{DynamicResource SystemAccentColorLight3}" >
+            <Button IsDefault="True" Command="{Binding RedirectToDictionaryCommand}" CornerRadius="8" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Background="{DynamicResource SystemAccentColorDark1}" Foreground="{DynamicResource SystemAccentColorLight3}" >
                 <TextBlock Margin="5,0,5,0" FontFamily="{StaticResource NotoSans}" Text="{DynamicResource ui_find_jmdict}"></TextBlock>
             </Button>
             <Button Click="JardicButton_OnClick" CornerRadius="8" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Background="{DynamicResource SystemAccentColorLight3}" Foreground="{DynamicResource SystemAccentColorDark2}" >

@@ -19,6 +19,7 @@
     <Application.Styles>
         <FluentTheme />
         <StyleInclude Source="avares://JPDA/Assets/Icons.axaml"></StyleInclude>
+        <StyleInclude Source="avares://JPDA/Assets/Animations.axaml"></StyleInclude>
     </Application.Styles>
     <Application.Resources>
         <ResourceDictionary>

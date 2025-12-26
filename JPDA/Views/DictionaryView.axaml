@@ -9,7 +9,7 @@
              x:Class="JPDA.Views.DictionaryView"
              x:DataType="vm:DictionaryViewModel">
     <DockPanel>
-        <Grid DockPanel.Dock="Top" >
+        <Grid DockPanel.Dock="Top" Classes="FlyoutAnimation">
             <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsLoading}" VerticalAlignment="Top"/>
             <StackPanel Margin="0,0,0,20">
                 <TextBlock Margin="0,20,0,25" Text="{DynamicResource ui_menu_dictionary}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" FontFamily="{StaticResource NotoSans}"></TextBlock>
@@ -23,7 +23,7 @@
             </StackPanel>
         </Grid>
     
-        <ScrollViewer Grid.Row="1" Offset="{Binding ScrollOffset, Mode=TwoWay}">
+        <ScrollViewer Offset="{Binding ScrollOffset, Mode=TwoWay}">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5" IsVisible="{Binding PageControlVisible}">
                     <Button Command="{Binding PrevButtonCommand}" Margin="0,0,20,0" Height="40" Width="40" IsVisible="{Binding PageControlBackVisible}">

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using JPDA.Data;
@@ -25,10 +26,19 @@ public partial class MainViewModel : ViewModelBase
     
     [ObservableProperty] private string _menuButtonAlignment = MainView.MenuButtonAlignStr;
     
+    [ObservableProperty] private bool _isContentPaneFocused = true;
+    
     [RelayCommand]
     private void TriggerPane()
     {
-        IsMenuPaneOpen = !IsMenuPaneOpen;
+        if (IsContentPaneFocused)
+        {
+            IsMenuPaneOpen = false; // Because when closing menu by clicking outside of menu panel IsMenuPaneOpen doesn't become false, and to trigger INotifyPropertyChanged we need to make it false manually
+            IsMenuPaneOpen = true;
+            return;
+        }
+        
+        IsMenuPaneOpen = false;
     }
     
     private static string? GetUiString(string str)
@@ -45,7 +55,11 @@ public partial class MainViewModel : ViewModelBase
         new ListItemTemplate(typeof(SettingsViewModel), GetUiString("ui_settings"), GetIcon("SettingsRegular"))
     ];
     
-    [ObservableProperty] private ListItemTemplate? _selectedListItem ;  // Current menu selection
+    [ObservableProperty] private ViewModelBase? _currentPage = (ViewModelBase)Activator.CreateInstance(MenuItems[App.CurrentScreenId].ModelType)!;
+    
+    [ObservableProperty] private static ListItemTemplate? _selectedListItem = MenuItems[App.CurrentScreenId];  // Current menu selection
+    [ObservableProperty] private int _selectedMenuItemIndex = App.CurrentScreenId;
+    
     // Redefining generated property for our needs (changing menu selection changes currentPage)
     partial void OnSelectedListItemChanged(ListItemTemplate? value)
     {
@@ -55,15 +69,23 @@ public partial class MainViewModel : ViewModelBase
         CurrentPage = (ViewModelBase)instance;
         IsMenuPaneOpen = false;
     }
-    
-    [ObservableProperty] private ViewModelBase? _currentPage = (ViewModelBase)Activator.CreateInstance(MenuItems[App.CurrentScreenId].ModelType)!;
+
+    public void ChangePage()
+    {
+        SelectedListItem = MenuItems[App.CurrentScreenId];
+        
+    }
+
+    [ObservableProperty] private bool _isButtonAnimated = false;
     
     public void LangMenuReset()
     {
+        IsButtonAnimated = false;
         MenuItems.Clear();
         MenuItems.Add(new ListItemTemplate(typeof(KanjiViewModel),GetUiString("ui_menu_kanji_input"), GetIcon("EditRegular")));
         MenuItems.Add(new ListItemTemplate(typeof(DictionaryViewModel),GetUiString("ui_menu_dictionary"), GetIcon("BookRegular")));
         MenuItems.Add(new ListItemTemplate(typeof(SettingsViewModel),GetUiString("ui_settings"), GetIcon("SettingsRegular")));
+        IsButtonAnimated = true;
     }
     
     public static StreamGeometry? GetIcon(string str)

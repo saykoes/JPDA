@@ -8,5 +8,13 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         this.DataContext = new MainViewModel();
+        
+    }
+    
+    public void ResetMainView()
+    {
+        MainViewWindow = new MainView(); 
+        if(App.CurrentScreenId == 2)
+            MainViewWindow = new MainView();    // for settings animation (it doesn't display it first time)
     }
 }
