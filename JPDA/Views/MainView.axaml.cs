@@ -73,13 +73,19 @@ public partial class MainView : UserControl
             {
                 if (App.CurrentScreenId == 2)
                 {
-                    var temp = buttonAlign; // For some reason buttonAlign fails after Task.Delay(50) so we have to save it
-                    Dispatcher.UIThread.Post(async void () =>
+                    // Waiting for disappearing animation on mobile breaks button, so let's just not wait on mobile
+                    if (Application.Current!.ApplicationLifetime is ISingleViewApplicationLifetime single)
                     {
-                        await Task.Delay(50); 
-                        mvm.MenuButtonAlignment = MainView.MenuButtonAlignStr = temp;
-                    });
-                    mvm.MenuButtonAlignment = MainView.MenuButtonAlignStr = buttonAlign;
+                        mvm.MenuButtonAlignment = MenuButtonAlignStr = buttonAlign;
+                    }
+                    else // Waiting for disappearing animation
+                    {
+                        Dispatcher.UIThread.Post(async void () =>
+                        {
+                            await Task.Delay(50);
+                            mvm.MenuButtonAlignment = MenuButtonAlignStr = buttonAlign;
+                        });
+                    }
                     mvm.LangMenuReset(); // Change text in menu
                 }
                 
